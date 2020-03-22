@@ -31,6 +31,10 @@ h6 {
     text-align: center;
 }
 
+.margin-auto {
+    margin: 0 auto;
+}
+
 .text-right {
     text-align: end;
 }
@@ -77,8 +81,13 @@ button:focus {outline:0;}
 }
 
 .rules-list {
+    padding: 0;
     line-height: 2.3rem;
     font-size: 120%;
+}
+
+.rules-list li {
+    padding-bottom: 20px;
 }
 
 .rules {
@@ -86,3 +95,83 @@ button:focus {outline:0;}
     font-weight: 700;
     padding-right: 15px;
 }
+
+.rules-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#about {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 35rem;
+  padding: 15rem 0;
+  background: url("../img/movie.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+
+@media (max-width: 576px)  {
+    /* .rules-container {
+        max-width: 540px;
+    } */
+    .rule-items {
+        display: block;
+        padding-left: 40px;
+        font-size: 95%;
+        text-align: left;;
+    }
+}
+
+@media (min-width: 768px) {
+    .rules-container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .rules-container {
+        max-width: 960px;
+    }
+}
+
+.img-gradient{
+    position:relative;
+    display:inline-block;
+}
+  
+.img-gradient:after {
+    content:'';
+    position:absolute;
+    left:0; top:0;
+    width:100%; 
+    height:100%;
+    display:inline-block;    
+    background: linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%); 
+}
+
+.img-gradient img{
+    display:block;
+}
+
+#popcorn-img { 
+    background-image:
+    linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%),
+    url("../img/popcorn.jpg");
+    margin:0 auto;
+    width: 80%;
+    min-height: 200px;
+    background-size: cover;
+}
+
+#detailsForm {
+    width: 100%;
+}
+
