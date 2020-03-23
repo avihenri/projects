@@ -49,6 +49,8 @@
             <li><span class="num-labels">3</span> <span class="rules">Third rule..</span> <span class="rule-items">You must have seen your movie</span></li>
             <li><span class="num-labels">4</span> <span class="rules">Fourth rule..</span> <span class="rule-items">Always have a back up</span></li>
             <li><span class="num-labels">5</span> <span class="rules">Fifth rule..</span> <span class="rule-items">Each movie should be in one sitting</span></li>
+            <li><span class="num-labels">6</span> <span class="rules">Sixth rule..</span> <span class="rule-items">Minimum of 3 people or if you are a couple, minimum of 2 movies each</span></li>
+            <li><span class="num-labels">7</span> <span class="rules">Seventh rule..</span> <span class="rule-items">Don&apos;t forget the snacks!</span></li>
           </ul>
         </div>
       </div>
@@ -70,7 +72,7 @@
         <div class="col-md-8 margin-auto" id="peopleCountWrapper">
           <h2 id="club-details">Let&apos;s go..</h2>
             <label for="inp-people">How many people are in your club?</label>
-            <input type="number" name="people" class="form-control  mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-people">
+            <input type="number" name="people" class="form-control mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-people">
              <div class="center-text">
               <button id="peopleCount" class="btn btn-primary mt-3">Enter</button>
             </div>
@@ -100,14 +102,36 @@
 
 
   <!-- Contact Section -->
-  <section class="contact-section bg-black">
-    <div class="container">
-
+  <section class="contact-section bg-black" id="section-filmClub" style="display: none;"> 
+    <div class="movie-container">
+   <div>
+   <h4 class="text-white text-center uppercase">Your Film Club</h4>      
+   </div>
       <div class="row">       
-        <div id="moviesOrder" style="width:100%;"></div> 
+        <div id="moviesOrder" style="width:100%; margin: 0 auto;"></div> 
+        <p class="text-white text-center" style="width:100%;"><small>Take a screenshot to save this moment!</small></p>
       </div>  
-
     </div>
+
+    <div class="movie-container">
+   <div>
+   <h4 class="text-white text-center uppercase">Points</h4>      
+   </div>
+      <div class="row">       
+        <<ul class="noliststyle justify-text rules-list" style="margin: 0 15px;">
+            <li><span class="dash-labels btn-primary btn">-</span> <span class="text-white">1 point for every movie you guess correctly (whos is whos)</span></li>
+            <li><span class="dash-labels btn-primary btn">-</span> <span class="text-white">1 point for every person that has not seen your movie</span></li>
+            <li><span class="dash-labels btn-primary btn">-</span> <span class="text-white">1 point if your movie was voted the best in the club</span></li>
+          </ul>
+      </div>  
+      <h4 class="text-white text-center mb-5 mt-4" style="width:100%;"><small>Good Luck!</h4>
+    </div>
+
+    <div class="row align-items-center no-gutters mb-4 mb-lg-5" >
+         <div class="text-center" style="width:100%;"> 
+          <img src="img/end.jpg" alt="" width="50%" style="max-width:400px;">
+        </div>
+      </div>
   </section>
 
   <!-- Footer -->
@@ -163,18 +187,29 @@
             $('#getMovies').hide();
             $('#allMovies').show(); 
           } 
-        });
+        })
 
-      // working progress..
+     
         $('#randomiseMovies').click(function() {
           $('#projects').hide();          
-          console.log(movieArr);
-          $.each(movieArr, function(e, val) {
-            $('#moviesOrder').html('<div class="col-md-4 mb-3 mb-md-0"><div class="card py-4 h-100"><div class="card-body text-center"><h4 class="text-uppercase m-0">Movie 1</h4><hr class="my-4"><div class="text-black-50">' + val + '</div></div></div></div>');
+          $('#section-filmClub').show();
+          index = 1;
+          randsort(movieArr);
+          $.each(movieArr, function(e, val) {            
+            $('#moviesOrder').append('<div class="col-md-12 mb-3 "><div class="card"><div class="card-body text-center"><h4 class="text-uppercase m-0">Movie ' + index + '</h4><hr class="my-2"><div class="text-black-50">' + val + '</div></div></div></div>');
+            index++;
           });          
         });
-      // ...
 
+      function randsort(c) {
+          var o = new Array();
+          for (var i = 0; i < c; i++) {
+              var n = Math.floor(Math.random()*c);
+              if( jQuery.inArray(n, o) > 0 ) --i;
+              else o.push(n);
+          }
+          return o;
+      }
 
 
     });

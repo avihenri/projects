@@ -117,6 +117,31 @@ button:focus {outline:0;}
   background-size: cover;
 }
 
+.movie-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.text-150 {
+    font-size: 150%;
+}
+
+.dash-labels {
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    background-color: #64a19d;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+    padding: .1rem .3rem;
+    color: #fff;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
 
 @media (max-width: 576px)  {
     /* .rules-container {
@@ -163,8 +188,17 @@ button:focus {outline:0;}
 
 #popcorn-img { 
     background-image:
-    linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%),
     url("../img/popcorn.jpg");
+    margin:0 auto;
+    width: 80%;
+    min-height: 200px;
+    background-size: cover;
+}
+
+#end-img { 
+    background-image:
+    linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%),
+    url("../img/end.jpg");
     margin:0 auto;
     width: 80%;
     min-height: 200px;
