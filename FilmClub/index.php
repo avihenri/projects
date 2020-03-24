@@ -37,25 +37,24 @@
     </div>
   </header>
 
-  <!-- About Section -->
+  <!-- Rules Section -->
   <section id="about" class="about-section text-center">
     <div class="rules-container">
       <div class="row">
         <div class="col-lg-10 col-12 mx-auto">
-          <h2 class="mb-4" id="rules">RULES</h2>
+          <h2 class="mb-4 mt-3 uppercase" id="rules">Rules</h2>
           <ul class="noliststyle justify-text rules-list">
             <li><span class="num-labels btn-primary btn">1</span> <span class="rules">First rule of film club..</span> <span class="rule-items">You must not tell anyone your movie!</span></li>
             <li><span class="num-labels">2</span> <span class="rules">Second rule..</span> <span class="rule-items">Each film club should have a </span></li>
             <li><span class="num-labels">3</span> <span class="rules">Third rule..</span> <span class="rule-items">You must have seen your movie</span></li>
             <li><span class="num-labels">4</span> <span class="rules">Fourth rule..</span> <span class="rule-items">Always have a back up</span></li>
             <li><span class="num-labels">5</span> <span class="rules">Fifth rule..</span> <span class="rule-items">Each movie should be in one sitting</span></li>
-            <li><span class="num-labels">6</span> <span class="rules">Sixth rule..</span> <span class="rule-items">Minimum of 3 people or if you are a couple, minimum of 2 movies each</span></li>
+            <li><span class="num-labels">6</span> <span class="rules">Sixth rule..</span> <span class="rule-items">Minimum of 3 people </span></li> <!--or if you are a couple, minimum of 2 movies each-->
             <li><span class="num-labels">7</span> <span class="rules">Seventh rule..</span> <span class="rule-items">Don&apos;t forget the snacks!</span></li>
           </ul>
         </div>
       </div>
-        <!-- Featured Project Row -->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5" >
+      <div class="row align-items-center no-gutters mb-4 mb-lg-5" >
          <div class="" style="width:100%;"> 
           <div id='popcorn-img'></div>
         </div>
@@ -63,7 +62,7 @@
     </div>
   </section>
 
-  <!-- Projects Section -->
+  <!-- Film Club Details Section -->
   <section id="projects" class="projects-section bg-light">
     <div class="container">
       <div class="row mb-4">
@@ -72,7 +71,8 @@
         <div class="col-md-8 margin-auto" id="peopleCountWrapper">
           <h2 id="club-details">Let&apos;s go..</h2>
             <label for="inp-people">How many people are in your club?</label>
-            <input type="number" name="people" class="form-control mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-people">
+            <input type="number" name="people" class="form-control mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-people" required>
+            <div id="showPeopleError" style="display:none;"><span class="red">*</span>Minimum of people is 3</div>
              <div class="center-text">
               <button id="peopleCount" class="btn btn-primary mt-3">Enter</button>
             </div>
@@ -82,7 +82,8 @@
         <div class="col-md-8 margin-auto" id="getMovies" style="display: none;">
           <h2 id="club-movies">Now the movies..</h2>
             <label for="inp-movie">Enter movie number <span id="count"></span></label>
-            <input type="movie" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-movie" placeholder="Enter your movie..">
+            <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inp-movie" placeholder="Enter your movie.." pattern=".{3,}" >
+            <div id="showMovieError" style="display:none;"><span class="red">*</span>Please enter your movie</div>
             <div class="center-text">
               <button id="enterMovie" class="btn btn-primary mt-3">Enter</button>
             </div>
@@ -100,8 +101,7 @@
     </div>
   </section>
 
-
-  <!-- Contact Section -->
+  <!-- Film Club Section -->
   <section class="contact-section bg-black" id="section-filmClub" style="display: none;"> 
     <div class="movie-container">
    <div>
@@ -112,7 +112,6 @@
         <p class="text-white text-center" style="width:100%;"><small>Take a screenshot to save this moment!</small></p>
       </div>  
     </div>
-
     <div class="movie-container">
    <div>
    <h4 class="text-white text-center uppercase">Points</h4>      
@@ -126,7 +125,6 @@
       </div>  
       <h4 class="text-white text-center mb-5 mt-4" style="width:100%;"><small>Good Luck!</h4>
     </div>
-
     <div class="row align-items-center no-gutters mb-4 mb-lg-5" >
          <div class="text-center" style="width:100%;"> 
           <img src="img/end.jpg" alt="" width="50%" style="max-width:400px;">
@@ -161,15 +159,33 @@
       let movieArr = [];
       let countArr = [];
 
+      // First step - Get people count
         $('#peopleCount').click(function() {
-          count = $('#inp-people').val();
-          numOfPeeps(count);
-          $('#peopleCountWrapper').hide();
-          $('#getMovies').show();    
-          $('#count').text(countArr[0]);      
-          console.log(countArr);
+          dealWithPeopleTot();
         });
 
+        $('#inp-people').keypress(function(event){
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if(keycode == '13'){
+            dealWithPeopleTot();
+          }          
+        });
+
+        function dealWithPeopleTot() {
+          count = $('#inp-people').val();
+          if (count < 3) {
+            $('#showPeopleError').show();
+            return false;
+          } else {
+            $('#showPeopleError').hide();
+            numOfPeeps(count);
+            $('#peopleCountWrapper').hide();
+            $('#getMovies').show();    
+            $('#count').text(countArr[0]); 
+          }
+        }
+
+        // create new array to count through movies (no of peeps)
         function numOfPeeps(count) {
           for (i = 1; i <= count; i++) {
             countArr.push(i);
@@ -177,40 +193,56 @@
           return countArr;
         }
 
-        $('#enterMovie').click(function() {
-          countArr.shift();
-          $('#count').text(countArr[0]); 
-            var movie = $('#inp-movie').val();
-            $('#inp-movie').val('');
-            movieArr.push(movie);
-          if (countArr.length === 0) {
-            $('#getMovies').hide();
-            $('#allMovies').show(); 
-          } 
-        })
+        // Second Step - Enter each movie into movie array
+        $('#enterMovie').click(function() {          
+          dealWithMovies();
+        });
 
+        $('#inp-movie').keypress(function(event){
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+          if(keycode == '13'){
+            dealWithMovies();
+          }          
+        });
+
+        function dealWithMovies() {
+          var movie = $('#inp-movie').val();           
+            if (movie.length < 2) {
+              $('#showMovieError').show();
+              return false;
+            } else {
+              $('#showMovieError').hide();
+              countArr.shift();
+              $('#count').text(countArr[0]); 
+              $('#inp-movie').val('');
+              movieArr.push(movie);
+              if (countArr.length === 0) {
+                $('#getMovies').hide();
+                $('#allMovies').show(); 
+              } 
+            } 
+        }
      
+      // Third step - present movies in random order
         $('#randomiseMovies').click(function() {
           $('#projects').hide();          
           $('#section-filmClub').show();
           index = 1;
-          randsort(movieArr);
+          shuffleArray(movieArr);
           $.each(movieArr, function(e, val) {            
             $('#moviesOrder').append('<div class="col-md-12 mb-3 "><div class="card"><div class="card-body text-center"><h4 class="text-uppercase m-0">Movie ' + index + '</h4><hr class="my-2"><div class="text-black-50">' + val + '</div></div></div></div>');
             index++;
           });          
         });
 
-      function randsort(c) {
-          var o = new Array();
-          for (var i = 0; i < c; i++) {
-              var n = Math.floor(Math.random()*c);
-              if( jQuery.inArray(n, o) > 0 ) --i;
-              else o.push(n);
-          }
-          return o;
+      // Shuffle array (for movies)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
       }
-
 
     });
   </script>
