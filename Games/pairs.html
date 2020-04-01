@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Games</title>
+  <title>Pair Memory Game</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -82,9 +82,9 @@
   <script>
     $(document).ready(function() {
       
-      let count = 20;
+      let count = 28;
       for (let i = 0; i < count; i++) {
-        $('.flex-container').append('<img src="img/playing-card.jpg" class="cards" width="20%" height="auto">');
+        $('.flex-container').append('<div class="card-items mb-3"><img src="img/playing-card.jpg" class="card-img" width="100%" height="auto"> <div class="card-show" style="display:none;"></div></div>');
       }
 
     });
