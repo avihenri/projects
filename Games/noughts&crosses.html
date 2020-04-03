@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Noughts &amp; Crosses</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="../logo/dice.png">
+
+  <!-- Custom styles for this template -->
+  <link href="css/main-style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/577f18dc97.js" crossorigin="anonymous"></script>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+
+</head>
+
+<body class="bg-dark">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <!-- <div class="container"> -->
+      <a class="navbar-brand" href="index.html">Simple Games <i class="fas fa-dice dark"></i></a>
+      
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <!-- <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul> -->
+      </div>
+    <!-- </div> -->
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container mb-5 mt-3">
+    <h6 class="text-center white">Noughts start.. so pick your poison!</h6>
+    <h6 class="text-center white">Click a square to start..</h6>
+
+    <div class="main mt-4">
+      <div class="row ml-1">
+          <div class="boxes white" id="0_0" data-id="1"></div>
+          <div class="boxes white" id="1_0" data-id="2"></div>
+          <div class="boxes white" id="2_0" data-id="3"></div>
+      </div>
+      <div class="row ml-1">
+        <div class="boxes white" id="0_1" data-id="4"></div>
+        <div class="boxes white" id="1_1" data-id="5"></div>
+        <div class="boxes white" id="2_1" data-id="6"></div>
+      </div>
+      <div class="row ml-1">
+          <div class="boxes white" id="0_2" data-id="7"></div>
+          <div class="boxes white" id="1_2" data-id="8"></div>
+          <div class="boxes white" id="2_2" data-id="9"></div>
+      </div>
+    </div>
+
+    
+  <div class="row text-center mt-4">
+    <div class="col-md-12">
+      <h3 class="white">Scores</h3>
+      <table id="scoreTable">
+        <tbody>
+          <tr>
+            <td>Noughts</td>
+            <td><span id="noughtsScore"></span></td>
+            <td><span id="crossesScore"></span></td>
+            <td>Crosses</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-light mt-3" id="resetGame" onclick="confirm('Are you sure? You will lose your scores.')">Reset Game</button>
+    </div>
+  </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-4 bg-dark">
+    <div class="container text-center ">
+      <!-- <img src="../logo/hds.png" class="inline-block mr-1 logo" width="20px" alt=""> -->
+      <p class="m-0 text-white inline-block">&copy; Henri Design Studio <script>document.write(new Date().getFullYear()) </script> </p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <div class="modal fade" id="winnerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">                            
+            <h4 class="text-center my-3"><span class="uppercase">Game Winner</span> <br> <span id="winnerTeam"></span></h4>
+            <button class="btn btn-dark my-3 mx-3" id="playAgain"><i class="fas fa-sync"></i> Keep Playing</button>
+        </div>
+    </div>
+</div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function() {
+
+      // GLOBAL VARIABLES
+      let currentPlayer = "O";
+      let gameWon = false;
+
+      let noughtsScore = 0;
+      let crossesScore = 0;
+      document.getElementById('noughtsScore').innerHTML = noughtsScore;
+      document.getElementById('crossesScore').innerHTML = crossesScore;
+
+      // ADD EVENT LISTENER TO EACH BOX
+      document.querySelectorAll('.boxes').forEach(item => {
+        item.addEventListener('click', event => {
+          if (item.innerText != "" || gameWon) return; 
+          item.innerHTML = currentPlayer;
+          currentPlayer == "O" ? currentPlayer = "X" : currentPlayer = "O";
+          checkGameBoard();
+        })
+      });
+      
+      // CHECKS BOARD FOR O OR X
+      function checkGameBoard() {
+          for(var i = 0; i <= 2; i++) {
+              checkWinner(document.getElementById(i + "_0").innerText, document.getElementById(i + "_1").innerText, document.getElementById(i + "_2").innerText);
+              checkWinner(document.getElementById("0_" + i).innerText, document.getElementById("1_" + i).innerText, document.getElementById("2_" + i).innerText);
+          }
+          checkWinner(document.getElementById("0_0").innerText, document.getElementById("1_1").innerText, document.getElementById("2_2").innerText);
+          checkWinner(document.getElementById("0_2").innerText, document.getElementById("1_1").innerText, document.getElementById("2_0").innerText);
+        }
+        // CHECKS IF FOR WINNER
+        function checkWinner(first, second, third) {
+            if(first != "" && first == second && first == third) {
+              let winner = '';
+              if (third == "O") {
+                 winner = "Noughts";
+                 noughtsScore++;
+                 document.getElementById('noughtsScore').innerHTML = noughtsScore;
+               } else {
+                  winner ="Crosses";
+                  crossesScore++;
+                  document.getElementById('crossesScore').innerHTML = crossesScore;
+               }
+               document.getElementById('winnerTeam').innerHTML = winner;
+               $('#winnerModal').modal('show');
+              gameWon = true;
+            }
+        }
+
+        let playAgainBtn = document.getElementById('playAgain');
+        playAgainBtn.addEventListener('click', playAgain);
+
+        function playAgain() {
+          document.querySelectorAll('.boxes').forEach(item => {
+              item.innerHTML = '';
+              currentPlayer = "O";
+              $('#winnerModal').modal('hide');
+              gameWon = false;
+          });
+        }
+
+        let resetGameBtn = document.getElementById('resetGame');
+        resetGameBtn.addEventListener('click', refreshPage);
+
+        function refreshPage() {
+          location.reload();
+        }
+
+      
+
+    });
+  </script>
+
+</body>
+
+</html>

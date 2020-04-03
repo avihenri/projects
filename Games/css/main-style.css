@@ -1,0 +1,132 @@
+/*!
+ * Start Bootstrap - Heroic Features (https://startbootstrap.com/template-overviews/heroic-features)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-heroic-features/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+
+/* REUSEABLE */
+.white {
+  color: #fff
+}
+
+.dark {
+  color: #343a40!important
+}
+
+.font-400 {
+  font-weight: 400;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.container {
+  max-height: 500px;
+  max-width: 960px;
+}
+
+.main-container {
+  width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#scoreTable tbody tr {
+  color: #fff;
+  text-align: left;
+}
+
+/* td:nth-child(odd) {
+  width: 65px;
+}
+
+td:nth-child(even) {
+  width: 18px;
+} */
+
+/* flex */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: auto;
+  /* max-width: 960px;
+  width: 80%;
+  height: 100%; */
+}
+
+.card-items {
+  width: 13%;
+}
+
+.main {
+  max-width: 300px;
+  margin: auto;
+}
+
+.row .boxes {
+  border: 2px solid #fff;
+  height: 100px;
+  width: 100px;
+  font-size: 380%;
+  padding-left: 25px;
+}
+
+.boxes {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+td:nth-child(4) {
+  text-align: right;
+}
+
+@media(min-width: 992px) {
+  .main-container {
+    max-width: 960px;
+  }
+}
+
+@media(min-width: 768px) {
+  #scoreTable {
+    width: 32%;
+    margin: auto;
+  }  
+}
+
+@media(min-width: 487px) {    
+    
+}
+
+@media(max-width: 768px) {
+  #scoreTable {
+    width: 100%;
+    margin: auto;
+  }
+  .main-container {
+    max-width: 560px;
+  }
+}
+
+.visible-mobile {
+  display: none !important;
+}
+
+@media (max-width: 489px) {
+  .visible-mobile {
+    display: inline !important;
+  }
+
+  .hidden-mobile {
+    display: none !important;
+  }
+}
