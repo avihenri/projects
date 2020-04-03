@@ -15,6 +15,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/heroic-features.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="../logo/dice.png">
   <script src="https://kit.fontawesome.com/577f18dc97.js" crossorigin="anonymous"></script>
 
 </head>
