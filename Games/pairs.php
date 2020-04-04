@@ -14,7 +14,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/heroic-features.css" rel="stylesheet">
+  <link href="css/main-style.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/png" href="../logo/dice.png">
   <script src="https://kit.fontawesome.com/577f18dc97.js" crossorigin="anonymous"></script>
 
@@ -61,7 +61,7 @@
     </div>
     </div>
 
-    <div class="flex-container">
+    <div class="flex-container" id="cardContainer">
       
     </div>
     <!-- /.row -->
@@ -84,9 +84,26 @@
     $(document).ready(function() {
       
       let count = 28;
+      let id = 1
       for (let i = 0; i < count; i++) {
-        $('.flex-container').append('<div class="card-items mb-3"><img src="img/playing-card.jpg" class="card-img" width="100%" height="auto"> <div class="card-show" style="display:none;"></div></div>');
+        $('#cardContainer').append('<div class="card-items mb-3"><img src="img/playing-card.jpg" class="card-img" width="100%" height="auto"> <div class="card-show" style="display:none;"></div></div>');
       }
+
+      // PAIRS.JS
+      var counter = 0;    
+      var openCard = "";
+      var openImg = "";
+      var foundAll = 0;
+      var imgSrcArr = [
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG",
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG"
+       ];
+
+      $('#counter').innerHTML = counter;
+      function random(max, min) {
+        return Math.round(Math.random() * (max - min) + min);
+      }
+      
 
     });
   </script>
