@@ -9,13 +9,14 @@
   <meta name="author" content="">
 
   <title>Pair Memory Game</title>
-
+  
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/main-style.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/png" href="../logo/dice.png">
+  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/577f18dc97.js" crossorigin="anonymous"></script>
 
 </head>
@@ -52,16 +53,16 @@
   </nav>
 
   <!-- Page Content -->
-  <div class="container mb-5">
+  <div class="container height-100 mb-5">
 
     <!-- Page Features -->
     <div class="row text-center">
-    <div class="col-md-12">
-      <h3 class="white">Score</h3>
-    </div>
+      <div class="col-md-12">
+        <h3 class="white">Score</h3>
+      </div>
     </div>
 
-    <div class="flex-container" id="cardContainer">
+    <div class="flex-container height-70" id="cardContainer">
       
     </div>
     <!-- /.row -->
@@ -77,31 +78,49 @@
     <!-- /.container -->
   </footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
+  <!-- Bootstrap core JavaScript -->  
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script>
     $(document).ready(function() {
       
       let count = 28;
-      let id = 1
+      let id = 1;
+      let arrIndex = 0;
+      // Pair images
+      var imgSrcArr = [
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG",
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG"
+       ];
+       // shuffle array on page load
+       shuffle(imgSrcArr);
+      
+      // Display Cards
       for (let i = 0; i < count; i++) {
-        $('#cardContainer').append('<div class="card-items mb-3"><img src="img/playing-card.jpg" class="card-img" width="100%" height="auto"> <div class="card-show" style="display:none;"></div></div>');
+        $('#cardContainer').append(`<div class="card-items mb-3"><img src="img/pair-cards/${imgSrcArr[arrIndex]}" class="card-img front" width="100%" height="100%" onmouseover="this.style.cursor='pointer'" style=""display:none;> <img src="img/playing-card.jpg" data-id="img-${id}" class="card-img back" width="100%" height="100%" onmouseover="this.style.cursor='pointer'"><div class="card-show" style="display:none;"></div></div>`);
+        arrIndex++;
+        id++;
       }
+
+      // flip effect
+      const cards = document.querySelectorAll('.card-items');
+      function flipCard() {
+        console.log(this);
+        this.classList.toggle('flip');
+      }
+      cards.forEach(card => card.addEventListener('click', flipCard));
 
       // PAIRS.JS
       var counter = 0;    
       var openCard = "";
       var openImg = "";
       var foundAll = 0;
-      var imgSrcArr = [
-        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG",
-        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG"
-       ];
+      
 
-      $('#counter').innerHTML = counter;
-      function random(max, min) {
-        return Math.round(Math.random() * (max - min) + min);
+      $('#counter').innerHTML = counter;     
+
+      // shuffle array
+      function shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
       }
       
 
