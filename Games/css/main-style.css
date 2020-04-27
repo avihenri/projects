@@ -18,6 +18,10 @@ html, body {
 }
 
 /* REUSEABLE */
+.margin-auto {
+  margin: auto;
+}
+
 .white {
   color: #fff
 }
@@ -157,7 +161,7 @@ td:nth-child(4) {
 @media(min-width: 488px) {    
   .card-items {
     /* width: 13%; */
-    width: calc(13% - 10px);
+    width: calc(16% - 10px);
     height: calc(23.333% - 10px);
     margin: 5px;
     position: relative;
@@ -189,6 +193,10 @@ td:nth-child(4) {
   }
 
   .card-items {
-    width: 21%;
+    width: calc(24% - 10px);
+    height: calc(23.333% - 10px);
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
   }
 }

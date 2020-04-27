@@ -25,102 +25,126 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <!-- <div class="container"> -->
       <a class="navbar-brand" href="index.html">Simple Games <i class="fas fa-dice white"></i></a>
-      
-      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <!-- <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-        </ul> -->
-      </div>
-    <!-- </div> -->
   </nav>
 
   <!-- Page Content -->
   <div class="container height-100 mb-5">
 
     <!-- Page Features -->
-    <div class="row text-center">
+    <div class="row text-center pb-3">
       <div class="col-md-12">
-        <h3 class="white">Score</h3>
+      <table class="margin-auto white">
+        <tbody>
+          <tr>
+            <td>Matches: <span id="matches" class="ml-4"></span>/12</td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </div>
 
-    <div class="flex-container height-70" id="cardContainer">
-      
-    </div>
-    <!-- /.row -->
+    <div class="flex-container height-70" id="cardContainer"></div>    
 
   </div>
-  <!-- /.container -->
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">&copy; Henri Design Studio <script>document.write(new Date().getFullYear())</script></p>
     </div>
-    <!-- /.container -->
   </footer>
 
   <!-- Bootstrap core JavaScript -->  
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/confetti.min.js"></script>
   <script>
     $(document).ready(function() {
       
-      let count = 28;
+      let count = 24;
       let id = 1;
       let arrIndex = 0;
+      let flipped = false;
+      let first, second;
+      let lockCards = false;
+      let matched = 0;
+      document.getElementById('matches').innerHTML = matched;
       // Pair images
       var imgSrcArr = [
-        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG",
-        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG", "m.PNG", "n.PNG"
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG",
+        "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG"
        ];
        // shuffle array on page load
        shuffle(imgSrcArr);
       
       // Display Cards
       for (let i = 0; i < count; i++) {
-        $('#cardContainer').append(`<div class="card-items mb-3"><img src="img/pair-cards/${imgSrcArr[arrIndex]}" class="card-img front" width="100%" height="100%" onmouseover="this.style.cursor='pointer'" style=""display:none;> <img src="img/playing-card.jpg" data-id="img-${id}" class="card-img back" width="100%" height="100%" onmouseover="this.style.cursor='pointer'"><div class="card-show" style="display:none;"></div></div>`);
+        $('#cardContainer').append(`<div class="card-items mb-3" data-img="${imgSrcArr[arrIndex]}"><img src="img/pair-cards/${imgSrcArr[arrIndex]}" class="card-img front" width="100%" height="100%" onmouseover="this.style.cursor='pointer'" style=""display:none;> <img src="img/playing-card.jpg" data-id="img-${id}" class="card-img back" width="100%" height="100%" onmouseover="this.style.cursor='pointer'"><div class="card-show" style="display:none;"></div></div>`);
         arrIndex++;
         id++;
       }
 
-      // flip effect
+      // Flip
       const cards = document.querySelectorAll('.card-items');
       function flipCard() {
-        console.log(this);
-        this.classList.toggle('flip');
+        if (lockCards) return;
+        if (this === first) return;
+        this.classList.add('flip');
+        if(!flipped) {
+          flipped = true;
+          first = this;
+          return;
+        }
+        second = this;
+        checkMatched();
       }
       cards.forEach(card => card.addEventListener('click', flipCard));
-
-      // PAIRS.JS
-      var counter = 0;    
-      var openCard = "";
-      var openImg = "";
-      var foundAll = 0;
       
+      // Check cards match
+      function checkMatched() {
+        if (first.dataset.img === second.dataset.img) {
+          disableMatched(); 
+          matched++;
+          document.getElementById('matches').innerHTML = matched;
+          if (matched === 12) {
+              gameover() 
+          }          
+          return;
+        }
+        flipBack();
+      }
 
-      $('#counter').innerHTML = counter;     
+      // Disable if matched
+      function disableMatched() {
+        first.removeEventListener('click', flipCard);
+        second.removeEventListener('click', flipCard);
+        resetCards();
+      }
+
+      // Flip back if not matched
+      function flipBack() {
+        lockCards = true;
+        setTimeout(() => {
+          first.classList.remove('flip');
+          second.classList.remove('flip');
+          resetCards();
+        }, 1500);
+      }
+
+      // resetCards cards not matched
+      function resetCards() {
+        [flipped, lockCards] = [false, false];
+        [first, second] = [null, null];
+      }
 
       // shuffle array
       function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
+      }
+
+      // Show confetti once all matched
+      function gameover() {
+        confetti.start();
       }
       
 
