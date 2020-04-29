@@ -46,6 +46,14 @@ html, body {
   display: inline-block;
 }
 
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
 .container {
   max-height: 500px;
   max-width: 960px;
@@ -82,9 +90,6 @@ td:nth-child(even) {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: auto;
-  /* max-width: 960px;
-  width: 80%;
-  height: 100%; */
 }
 
 .main {
@@ -110,6 +115,19 @@ td:nth-child(even) {
 
 td:nth-child(4) {
   text-align: right;
+}
+
+#statsTable {
+  display:none;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top:100px;
+}
+
+#statsTable thead {
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid #fff;
 }
 
 /* CARDS */
@@ -142,6 +160,9 @@ td:nth-child(4) {
   transform: rotateY(180deg);
 }
 
+.width-100 {
+  width: 100%;
+}
 
 /* QUERIES */
 
@@ -184,6 +205,26 @@ td:nth-child(4) {
 }
 
 @media (max-width: 489px) {
+  .navSm-hide {
+    display: none;
+  }
+
+.nav-contents {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: auto;
+  }
+
+  .nav li {
+    display: inline-block;
+    margin-left: 25px;
+  }
+
+  .navbar {
+    padding-right: 0 !important;
+  }
+
   .visible-mobile {
     display: inline !important;
   }
@@ -194,7 +235,7 @@ td:nth-child(4) {
 
   .card-items {
     width: calc(24% - 10px);
-    height: calc(23.333% - 10px);
+    height: calc(18.333% - 10px);
     margin: 5px;
     position: relative;
     box-shadow: 1px 1px 1px rgba(0,0,0,.3);
