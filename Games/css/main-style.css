@@ -164,6 +164,19 @@ td:nth-child(4) {
   width: 100%;
 }
 
+
+.nav-contents {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: auto;
+}
+
+.nav li {
+  display: inline-block;
+  margin-left: 25px;
+}
+
 /* QUERIES */
 
 @media(min-width: 992px) {
@@ -208,19 +221,7 @@ td:nth-child(4) {
   .navSm-hide {
     display: none;
   }
-
-.nav-contents {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-    margin: auto;
-  }
-
-  .nav li {
-    display: inline-block;
-    margin-left: 25px;
-  }
-
+  
   .navbar {
     padding-right: 0 !important;
   }
