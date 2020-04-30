@@ -68,6 +68,15 @@
     </div>
   </footer>
 
+  <!-- START MODAL -->
+  <div class="modal fade" id="startModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">                            
+            <h4 class="text-center my-3"><span class="uppercase">Ready?</span></h4>
+            <button class="btn btn-dark my-3 mx-3" id="playBtn">Play</button>
+        </div>
+    </div>
+</div>
   <!-- ALL MATCHED MODAL -->
   <div class="modal fade" id="completeModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -76,7 +85,7 @@
             <p class="ml-4">Total time: <span id="time"></span></p>
             <p class="ml-4">Number of tries: <span id="totalTries"></span></p>
             <p class="text-center">See if you can beat your stats..</p>
-            <button class="btn btn-dark my-3 mx-3" id="playAgain"><i class="fas fa-sync"></i> Playing Again</button>
+            <button class="btn btn-dark my-3 mx-3" id="playAgain"><i class="fas fa-sync"></i> Play Again</button>
         </div>
     </div>
 </div>
@@ -98,29 +107,44 @@
       let timer;
       let stats = {};
       let game = 1;
+      let cards;
       document.getElementById('matches').innerHTML = matched;
-      document.getElementById('tries').innerHTML = totalTries;
-      const cards = document.querySelectorAll('.card-items');
-      startTimer();
+      document.getElementById('tries').innerHTML = totalTries;      
+      $('#startModal').modal('show');
+
+      let playBtn = document.getElementById("playBtn");
+      playBtn.addEventListener('click', startGame);
+
+      // Start Game
+      function startGame() {
+        $('#startModal').modal('hide');
+        startTimer();
+      }
+      
       // Pair images
       var imgSrcArr = [
         "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG",
         "a.PNG", "b.PNG", "c.PNG", "d.PNG", "e.PNG", "f.PNG", "g.jpg", "h.PNG", "i.PNG", "j.png", "k.png", "l.PNG"
        ];
-       loadImages();          
-      
+       loadImages();         
+       addFlipListerner();       
+
       // Display Cards
       function loadImages() {
-       shuffle(imgSrcArr);
-      //  cards.forEach(card => card.addEventListener('click', flipCard)); 
+       shuffle(imgSrcArr);       
         for (let i = 0; i < count; i++) {
           $('#cardContainer').append(`<div class="card-items mb-3" data-img="${imgSrcArr[arrIndex]}"><img src="img/pair-cards/${imgSrcArr[arrIndex]}" class="card-img front" width="100%" height="100%" onmouseover="this.style.cursor='pointer'" style=""display:none;> <img src="img/playing-card.jpg" data-id="img-${id}" class="card-img back" width="100%" height="100%" onmouseover="this.style.cursor='pointer'"><div class="card-show" style="display:none;"></div></div>`);
           arrIndex++;
           id++;
         }    
-         
+        
       }
-      
+
+      // Add click listener to flipcard
+     function addFlipListerner() {
+      cards = document.querySelectorAll('.card-items');
+      cards.forEach(card => card.addEventListener('click', flipCard)); 
+     }
 
     // Flip
       function flipCard() {
@@ -135,7 +159,6 @@
         second = this;
         checkMatched();
       }
-      // cards.forEach(card => card.addEventListener('click', flipCard));
       
       // Check cards match
       function checkMatched() {
@@ -167,21 +190,21 @@
           first.classList.remove('flip');
           second.classList.remove('flip');
           resetCards();
-        }, 1500);
+        }, 800);
       }
 
-      // resetCards cards not matched
+      // Reset cards not matched
       function resetCards() {
         [flipped, lockCards] = [false, false];
         [first, second] = [null, null];
       }
 
-      // shuffle array
+      // Shuffle array
       function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
       }
 
-      // Show confetti once all matched
+      // Gameover
       function gameover() {
         clearInterval(timer);
         let min = document.getElementById("minutes").innerHTML;
@@ -190,19 +213,23 @@
         document.getElementById('time').innerHTML = time;
         document.getElementById('totalTries').innerHTML = totalTries;
         confetti.start(2000);   
-        stats[game] = {timeTaken: time, triesTaken: totalTries};        
+        stats[game] = {timeTaken: time, triesTaken: totalTries};       
+        console.log(stats); 
         document.getElementById("statsTable").style.display = "inline-table";
         $('#statsTableBody').empty();
+        let rowNum = 0;
         Object.keys(stats).forEach(key => {
           let statsTable = document.getElementById("statsTableBody");
-          let row = statsTable.insertRow(0);
+          let row = statsTable.insertRow(rowNum);
           let cellGame = row.insertCell(0);
           let cellTime = row.insertCell(1);
           let cellTries = row.insertCell(2);
           cellGame.innerHTML = key;
           cellTime.innerHTML = stats[key].timeTaken;
           cellTries.innerHTML = stats[key].triesTaken;
+          rowNum++;
         });
+        game++;
         setTimeout(() => {
           $('#completeModal').modal('show');          
         }, 2000);
@@ -220,9 +247,9 @@
         cards.forEach(card => card.classList.remove('flip'));        
         $('#cardContainer').empty();
         loadImages();
-        
-        startTimer()
-        $('#completeModal').modal('hide');   
+        addFlipListerner();
+        $('#completeModal').modal('hide'); 
+        startTimer();  
       }      
 
       // Timer
@@ -236,10 +263,6 @@
           document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
       }, 2000);
      }
-
-      // setTimeout(() => {
-      //   gameover();
-      // }, 1000);
 
     });
   </script>
