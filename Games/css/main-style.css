@@ -42,6 +42,10 @@ html, body {
   height: 70%;
 }
 
+.width-100 {
+  width: 100%;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -153,6 +157,7 @@ td:nth-child(4) {
 }
 
 .back, .front {
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
@@ -160,9 +165,6 @@ td:nth-child(4) {
   transform: rotateY(180deg);
 }
 
-.width-100 {
-  width: 100%;
-}
 
 
 .nav-contents {
@@ -174,7 +176,15 @@ td:nth-child(4) {
 
 .nav li {
   display: inline-block;
-  margin-left: 25px;
+  margin-left: 20px;
+}
+
+.nav-item:nth-child(1) {
+  min-width: 100px;
+}
+
+.nav-item:nth-child(2) {
+  min-width: 70px;
 }
 
 /* QUERIES */
@@ -220,6 +230,10 @@ td:nth-child(4) {
 @media (max-width: 489px) {
   .navSm-hide {
     display: none;
+  }
+
+  .nav li {
+   font-size: 80%;
   }
   
   .navbar {

@@ -77,6 +77,15 @@
         </div>
     </div>
 </div>
+  <!-- GAME EXPIRED MODAL -->
+  <div class="modal fade" id="expiredModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">                            
+            <h4 class="text-center my-3"><span class="uppercase">Game Expired</span></h4>
+            <button class="btn btn-dark my-3 mx-3" id="startAgainBtn">Play Again?</button>
+        </div>
+    </div>
+</div>
   <!-- ALL MATCHED MODAL -->
   <div class="modal fade" id="completeModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -110,7 +119,9 @@
       let cards;
       document.getElementById('matches').innerHTML = matched;
       document.getElementById('tries').innerHTML = totalTries;      
-      $('#startModal').modal('show');
+      $('#startModal').modal({backdrop: 'static', keyboard: false});
+     
+      
 
       let playBtn = document.getElementById("playBtn");
       playBtn.addEventListener('click', startGame);
@@ -214,7 +225,6 @@
         document.getElementById('totalTries').innerHTML = totalTries;
         confetti.start(2000);   
         stats[game] = {timeTaken: time, triesTaken: totalTries};       
-        console.log(stats); 
         document.getElementById("statsTable").style.display = "inline-table";
         $('#statsTableBody').empty();
         let rowNum = 0;
@@ -231,7 +241,7 @@
         });
         game++;
         setTimeout(() => {
-          $('#completeModal').modal('show');          
+          $('#completeModal').modal({backdrop: 'static', keyboard: false});          
         }, 2000);
       }
 
@@ -243,6 +253,8 @@
         [id, arrIndex, matched, totalTries] = [1, 0, 0, 0];
         document.getElementById('matches').innerHTML = matched;
         document.getElementById('tries').innerHTML = totalTries;
+        document.getElementById("seconds").innerHTML = '00';
+        document.getElementById("minutes").innerHTML = '00';
         resetCards();      
         cards.forEach(card => card.classList.remove('flip'));        
         $('#cardContainer').empty();
@@ -261,7 +273,18 @@
      timer = setInterval(function () {
           document.getElementById("seconds").innerHTML = pad(++sec % 60);
           document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
-      }, 2000);
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(timer);
+        $('#expiredModal').modal({backdrop: 'static', keyboard: false});
+      }, 600000);
+     }
+     let startAgainBtn = document.getElementById('startAgainBtn');
+     startAgainBtn.addEventListener('click', playAgain);
+
+     function playAgain() {
+      resetGame();
+      $('#expiredModal').modal('hide');       
      }
 
     });
