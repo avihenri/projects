@@ -119,8 +119,7 @@
       let cards;
       document.getElementById('matches').innerHTML = matched;
       document.getElementById('tries').innerHTML = totalTries;      
-      $('#startModal').modal({backdrop: 'static', keyboard: false});
-     
+      $('#startModal').modal({backdrop: 'static', keyboard: false});     
       
 
       let playBtn = document.getElementById("playBtn");
