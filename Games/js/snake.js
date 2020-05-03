@@ -13,10 +13,12 @@ let foodX;
 let foodY; 
 let score = 0; 
 document.getElementById('score').innerHTML = score;
-// $('#startModal').modal({backdrop: 'static', keyboard: false});  
+
+// CREATE/CLEAR CANVAS
 let ctx = canvasBoard.getContext("2d");
 clearCanvas();
 
+// CREATE SNAKE
 function drawSnakePart(snakePart) { 
      ctx.fillStyle = 'lightgreen';  
      ctx.strokestyle = 'darkgreen';
@@ -29,6 +31,7 @@ function drawSnake() {
 }
 drawSnake();
 
+// MOVE SNAKE
 function advanceSnake() {  
   const head = {x: snake[0].x + dx, y: snake[0].y + dy};
   snake.unshift(head);
@@ -42,9 +45,7 @@ function advanceSnake() {
     }
 }
 
-// let playBtn = document.getElementById("playBtn");
-// playBtn.addEventListener('click', startGame);
-
+// START GAME WITH 1s DELAY
 function startGame() {
     $('#startModal').modal('hide');   
     setTimeout(() => {
@@ -52,9 +53,9 @@ function startGame() {
         main();
     }, 1000);
 }
-
 startGame();
 
+// GAME FUNCTIONALITY
 function main() {
     if (didGameEnd()) return;
     setTimeout(function onTick() {    
@@ -66,12 +67,13 @@ function main() {
     }, 100)
 }
 
+// CLEARS CANVAS
 function clearCanvas() {  
     ctx.fillStyle = canvasBackgroundColor;
     ctx.fillRect(0, 0, canvasBoard.width, canvasBoard.height);
 }
 
-
+// CHANGE DIRECTION FOR KEYBOARD KEYS
 function changeDirection(event) {  
     const LEFT_KEY = 37;  
     const RIGHT_KEY = 39;  
@@ -88,6 +90,7 @@ function changeDirection(event) {
     if (keyPressed === DOWN_KEY && !goingUp) {    dx = 0;    dy = 10;  }
 }
 
+// CHANGE DIRECTION WITH BUTTONS
 function up() {
     const goingDown = dy === 10;  
     if (!goingDown) {    dx = 0;    dy = -10;  }
@@ -110,6 +113,7 @@ function right() {
 
 document.addEventListener("keydown", changeDirection);
 
+// CREATE FOOD 
 function randomTen(min, max) {  
     return Math.round((Math.random() * (max-min) + min) / 10) * 10;
 }
@@ -130,6 +134,7 @@ function drawFood() {
     ctx.strokeRect(foodX, foodY, 10, 10);
 }
 
+// END GAME
 function didGameEnd() {  
     for (let i = 4; i < snake.length; i++) {    
         const didCollide = snake[i].x === snake[0].x && snake[i].y === snake[0].y
@@ -148,21 +153,15 @@ function didGameEnd() {
     };
 }
 
+function showEndModel() {
+    $('#endGameModal').modal({backdrop: 'static', keyboard: false});
+}
+
+// RESET GAME
 let playBtnAgain = document.getElementById("playBtnAgain");
 playBtnAgain.addEventListener('click', resetPageGame);
 
 function resetPageGame() {    
-    // clearCanvas();
-    // snake = [  
-    //     {x: 150, y: 150},  {x: 140, y: 150},  {x: 130, y: 150},  {x: 120, y: 150},  {x: 110, y: 150}
-    // ];       
-    // drawSnake();
-    // console.log(snake);
-    // $('#endGameModal').modal('hide'); 
-    // startGame();
     location.reload();
 }
 
-function showEndModel() {
-    $('#endGameModal').modal({backdrop: 'static', keyboard: false});
-}
