@@ -26,6 +26,10 @@ html, body {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .white {
   color: #fff
 }
@@ -169,8 +173,6 @@ td:nth-child(4) {
   transform: rotateY(180deg);
 }
 
-
-
 .nav-contents {
   list-style: none;
   width: 100%;
@@ -178,9 +180,16 @@ td:nth-child(4) {
   margin: auto;
 }
 
+.nav {
+  display:block;
+}
+
 .nav li {
   display: inline-block;
-  margin-left: 20px;
+}
+
+.nav li:last-child {
+    float:right;
 }
 
 .nav-item:nth-child(1) {
@@ -191,8 +200,14 @@ td:nth-child(4) {
   min-width: 70px;
 }
 
-.canvas-box {
-  margin-top: 50px;
+.keyboardBtns button {
+  padding: 15px 45px;
+  border-radius: 20%;
+  background-color: #fff;
+}
+
+.keyboardBtns button:nth-child(4) {
+  margin-left: 75px;
 }
 
 /* QUERIES */

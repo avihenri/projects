@@ -15,14 +15,10 @@
 
   <!-- Custom styles for this template -->
   <link href="css/main-style.css" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="../logo/dice.png">
+  <link rel="shortcut icon" type="image/png" href="../logo/snake.png">
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/577f18dc97.js" crossorigin="anonymous"></script>
-<style>
-    #canvasBoard {
-        /* width:100%; */
-    }
-</style>
+
 </head>
 
 <body class="bg-dark">
@@ -32,16 +28,32 @@
     <div class="row width-100">
       <div class="col-md-3 col-sm-2 col-2">
         <a class="navbar-brand" href="index.html"><span class="navSm-hide">Simple Games</span> <i class="fas fa-dice white"></i></a>
-      </div>   
+      </div> 
+      <div class="col-md-9 col-sm-10 col-10 nav-contents">
+        <ul class="nav">
+          <li class="nav-item active white uppercase">
+            Classic Snake
+          </li>    
+          <li class="nav-item active white text-right uppercase">
+            Score: <span id="score" class="ml-2"></span>
+          </li> 
+        </ul> 
+      </div>  
     </div>     
   </nav>
 
   <!-- Page Content -->
   <div class="container height-100 mb-5 center-text">
     <div class="canvas-box">
+      <!-- <div class="white mb-3"></div> -->
         <canvas id="gameCanvas" width="300" height="300"></canvas>
     </div>
-    <button type="button" id="up" value="up">up</button>
+    <div class="keyboardBtns">
+      <button type="button" onclick="up()"><i class="fas fa-arrow-circle-up"></i></button> <br>
+      <button type="button" onclick="left()"><i class="fas fa-arrow-circle-left"></i></button>
+      <button type="button" onclick="right()"><i class="fas fa-arrow-circle-right"></i></button> <br>
+      <button type="button" onclick="down()"><i class="fas fa-arrow-circle-down"></i></button>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -51,7 +63,25 @@
     </div>
   </footer>
 
+   <!-- START MODAL -->
+   <div class="modal fade" id="startModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">                            
+            <h4 class="text-center my-3"><span class="uppercase">Ready?</span></h4>
+            <button class="btn btn-dark my-3 mx-3" id="playBtn">Play</button>
+        </div>
+    </div>
+  </div>
 
+    <!-- END MODAL -->
+    <div class="modal fade" id="endGameModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">                            
+              <h4 class="text-center my-3"><span class="uppercase">Whoops!</span></h4>
+              <button class="btn btn-dark my-3 mx-3" id="playBtnAgain">Play Again?</button>
+          </div>
+      </div>
+    </div>
   <!-- Bootstrap core JavaScript -->  
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="js/snake.js"></script>
