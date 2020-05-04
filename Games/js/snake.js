@@ -165,3 +165,10 @@ function resetPageGame() {
     location.reload();
 }
 
+let cancelBtn = document.getElementById('cancelBtn');
+cancelBtn.addEventListener('click', cancelGame);
+
+function cancelGame() {
+    $('#endGameModal').modal('hide');
+}
+

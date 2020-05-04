@@ -30,16 +30,16 @@
         <a class="navbar-brand" href="index.html"><span class="navSm-hide">Simple Games</span> <i class="fas fa-dice white"></i></a>
       </div>
       <div class="col-md-9 col-sm-10 col-10 nav-contents">
-        <ul class="nav pull-right">
-          <li class="nav-item active white pull-right">
+        <ul class="nav pairs-nav pull-right">   
+          <li class="nav-item active white text-right">
             Matches: <span id="matches" class="ml-2"></span>/12
-          </li>    
-          <li class="nav-item active white pull-right">
+          </li>  
+          <li class="nav-item active white text-right">
             Tries: <span id="tries" class="ml-2"></span>
-          </li>     
-          <li class="nav-item active white pull-right">
-          <label id="minutes">00</label>:<label id="seconds">00</label>
-          </li>    
+          </li>   
+          <li class="nav-item active white text-right">
+            <span id="minutes">00</span>:<span id="seconds">00</span>
+          </li>  
         </ul> 
       </div> 
     </div>     
@@ -65,6 +65,7 @@
   <footer class="py-3 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">&copy; Henri Code <script>document.write(new Date().getFullYear())</script></p>
+      <p class="m-0 text-center "><a href="../../index.php" class="white portfolio-link">Avril&apos;s Portfolio</a></script></p>
     </div>
   </footer>
 

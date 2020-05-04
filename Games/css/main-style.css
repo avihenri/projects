@@ -125,6 +125,11 @@ td:nth-child(even) {
   text-transform: uppercase;
 }
 
+.portfolio-link:hover {
+    color: orange !important;
+    border-bottom: 0 solid orange;
+}
+
 td:nth-child(4) {
   text-align: right;
 }
@@ -188,7 +193,7 @@ td:nth-child(4) {
   display: inline-block;
 }
 
-.nav li:last-child {
+.snake-nav li:last-child {
     float:right;
 }
 
@@ -200,6 +205,10 @@ td:nth-child(4) {
   min-width: 70px;
 }
 
+.pairs-nav li {
+  margin-left: 20px;
+}
+
 .keyboardBtns button {
   padding: 15px 45px;
   border-radius: 20%;
@@ -208,6 +217,11 @@ td:nth-child(4) {
 
 .keyboardBtns button:nth-child(4) {
   margin-left: 75px;
+}
+
+.btn-red {
+  background-color: #BC544B;
+  color: #fff;
 }
 
 /* QUERIES */
@@ -223,6 +237,11 @@ td:nth-child(4) {
     width: 32%;
     margin: auto;
   }  
+
+  .game-img {
+    height: 320px;
+  }
+
 }
 
 @media(min-width: 488px) {    
@@ -236,7 +255,11 @@ td:nth-child(4) {
   }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 767px) {
+  .navSm-hide {
+    display: none;
+  }
+
   #scoreTable {
     width: 100%;
     margin: auto;
@@ -250,10 +273,7 @@ td:nth-child(4) {
   display: none !important;
 }
 
-@media (max-width: 489px) {
-  .navSm-hide {
-    display: none;
-  }
+@media (max-width: 489px) {  
 
   .nav li {
    font-size: 80%;
@@ -278,4 +298,11 @@ td:nth-child(4) {
     position: relative;
     box-shadow: 1px 1px 1px rgba(0,0,0,.3);
   }
+}
+
+@media (max-width: 350px)  {
+  .pairs-nav li {
+    margin-left: 5px;
+  }
+  
 }
